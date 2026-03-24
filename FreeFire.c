@@ -19,7 +19,8 @@ void menu() {
     printf("1 - Adicionar Item\n");
     printf("2 - Remover Item\n");
     printf("3 - Listar Itens\n");
-    printf("4 - Sair\n");
+    printf("4 - Buscar Item por nome\n");
+    printf("5 - Sair\n");
     printf("Escolha uma opcao: ");
 }
 
@@ -82,6 +83,30 @@ void listarItens() {
     printf("========================================\n");
 }
 
+int buscaItemPorNome() {    
+    char nomeProc[50];
+    printf("Qual é o nome do Item?\n");
+    scanf(" %49[^\n]", nomeProc);
+
+    bool encontrado = false;
+    
+    for (int i = 0; i < totalItens; i++) {
+
+        if (strcmp(nomeProc, mochila[i].nome) == 0) {
+            printf("\n=========== ITENS ENCONTRADOS ===========\n");
+            printf("%-20s | %-15s | %8d\n", 
+               mochila[i].nome, mochila[i].tipo, mochila[i].quantidade);
+               encontrado = true;
+        }
+    }
+
+    if (!encontrado) {
+        printf("Item '%s' nao encontrado!\n", nomeProc);
+    }
+
+    return 0;
+}
+
 int main() {
     int opcao;
     
@@ -100,12 +125,15 @@ int main() {
                 listarItens();
                 break;
             case 4:
+                buscaItemPorNome();
+                break;
+            case 5:
                 printf("Programa finalizado!\n");
                 break;
             default:
                 printf("Opcao invalida! Tente novamente.\n");
         }
-    } while (opcao != 4);
+    } while (opcao != 5);
     
     return 0;
 }
